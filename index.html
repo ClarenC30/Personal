@@ -3,173 +3,240 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>A question for you 💌</title>
+<title>Aly’s 20th Birthday 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg1:#ffe3ec;--bg2:#ffd1dc;--card:#ffffff;--text:#4a1f33;--muted:#8a5a70;--accent:#ff4d85;--accent2:#ff7aa5;--ghost:#f3dbe4;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2a1020;--bg2:#3b1530;--card:#1f0e18;--text:#ffe8f0;--muted:#d6a4bb;--accent:#ff5c93;--accent2:#ff86ae;--ghost:#3a2030;color-scheme:dark}}
-:root[data-theme="dark"]{--bg1:#2a1020;--bg2:#3b1530;--card:#1f0e18;--text:#ffe8f0;--muted:#d6a4bb;--accent:#ff5c93;--accent2:#ff86ae;--ghost:#3a2030;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:"Poppins","Segoe UI",system-ui,sans-serif;color:var(--text);background:linear-gradient(135deg,var(--bg1),var(--bg2));overflow:hidden}
-.card{background:var(--card);width:min(92vw,440px);padding:34px 26px;border-radius:28px;text-align:center;box-shadow:0 20px 60px rgba(255,77,133,.25);position:relative;z-index:2}
-.emoji{font-size:64px;animation:bob 2s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-8px) rotate(4deg)}}
-h1{font-size:26px;margin:14px 0 8px;line-height:1.25}
-p{color:var(--muted);margin:0 0 20px;min-height:1.4em}
-button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:13px 28px;cursor:pointer;transition:transform .15s}
-.yes{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 8px 20px rgba(255,77,133,.4)}
-.no{background:var(--ghost);color:var(--text)}
-button:active{transform:scale(.96)}
+html,body{margin:0}
+body{min-height:100vh;font-family:"Poppins","Segoe UI",system-ui,sans-serif;color:#4a1f33;overflow-x:hidden;
+background-color:#ffb3cf;
+background-image:radial-gradient(#ff8fb7 4px,transparent 4.5px),radial-gradient(rgba(255,255,255,.65) 2.5px,transparent 3px),linear-gradient(90deg,rgba(255,255,255,.2) 50%,transparent 50%);
+background-size:40px 40px,24px 24px,60px 60px;background-position:0 0,12px 12px,0 0;animation:drift 16s linear infinite}
+@keyframes drift{to{background-position:120px 120px,132px 132px,120px 0}}
+main{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(16px + env(safe-area-inset-top,0px)) 14px calc(16px + env(safe-area-inset-bottom,0px))}
+.title{font-family:"Pacifico","Brush Script MT",cursive;font-weight:400;font-size:clamp(30px,8vw,46px);text-align:center;margin:0;color:#fff;text-shadow:0 3px 0 #e0306a,0 8px 16px rgba(224,48,106,.4)}
+.stage{width:min(94vw,460px);background:rgba(255,255,255,.6);backdrop-filter:blur(6px);border-radius:28px;padding:16px;box-shadow:0 18px 50px rgba(224,48,106,.3)}
+.bubble{background:#fff;border-radius:20px;padding:12px 16px;font-weight:600;font-size:16px;line-height:1.4;position:relative;min-height:52px;display:flex;align-items:center;justify-content:center;text-align:center}
+.bubble::after{content:"";position:absolute;bottom:-9px;right:56px;border:10px solid transparent;border-top-color:#fff;border-bottom:0}
+.chars{display:flex;align-items:flex-end;justify-content:center;gap:6px;margin-top:98px}
+.aly{position:relative;width:160px;height:160px;border-radius:50%;border:6px solid #fff;background:#ffd6e4;display:grid;place-items:center;font-size:70px;box-shadow:0 10px 24px rgba(224,48,106,.35);flex:none}
+.aly img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.hat{position:absolute;width:92px;top:-86px;left:50%;margin-left:-46px;transform:rotate(-10deg);transform-origin:bottom center;filter:drop-shadow(0 4px 4px rgba(0,0,0,.2));z-index:3;animation:wob 2.4s ease-in-out infinite}
+@keyframes wob{50%{transform:rotate(-4deg)}}
+.mini{display:flex;flex-direction:column;align-items:center;margin-left:var(--gap,40px);transition:margin .7s;border-radius:20px;padding:4px}
+.mini svg{width:70px;animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.mini small{font-size:11px;font-weight:600;color:#c2336b}
+.want{outline:4px dashed #ff4d85;outline-offset:6px;animation:pulse 1s infinite}
+@keyframes pulse{50%{outline-offset:11px}}
+.hot{transform:scale(1.07)}
+#panel{width:min(94vw,460px);min-height:150px;text-align:center}
+.hint{font-weight:600;color:#fff;text-shadow:0 2px 6px rgba(224,48,106,.6);margin:0 0 10px}
+.tray{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.box{width:86px;height:86px;border-radius:18px;background:#fff;box-shadow:0 8px 18px rgba(224,48,106,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;position:relative;z-index:10}
+.box span{font-size:34px;line-height:1.1}
+.box small{font-size:11px;font-weight:600}
+.box.lift{cursor:grabbing;z-index:50}
+.slot{margin:0 auto 14px;width:200px;padding:14px;border:4px dashed #fff;border-radius:20px;font-weight:600;color:#fff;font-size:18px}
+.slot.hot{background:rgba(255,255,255,.35)}
 .row{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;min-height:90px}
-.hidden{display:none}
-.opts{display:grid;gap:10px;margin-bottom:8px}
-.opts button{background:var(--ghost);color:var(--text);border-radius:16px;text-align:left}
-.opts button:hover{background:var(--accent);color:#fff}
-.small{font-size:13px;margin-top:14px}
-canvas{position:fixed;inset:0;pointer-events:none;z-index:5}
-.heart{position:fixed;bottom:-30px;font-size:22px;opacity:.5;animation:rise linear forwards;z-index:1;pointer-events:none}
+button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:13px 28px;cursor:pointer;transition:transform .15s}
+button:active{transform:scale(.96)}
+.yes{background:linear-gradient(135deg,#ff4d85,#ff7aa5);color:#fff;box-shadow:0 8px 20px rgba(255,77,133,.45)}
+.no{background:#fff;color:#4a1f33}
+.dots{display:flex;gap:8px}
+.dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.6)}
+.dots i.on{background:#ff4d85;transform:scale(1.3)}
+.sent{font-size:13px;font-weight:600;color:#fff;margin-top:12px}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:60}
+.heart{position:fixed;bottom:-30px;font-size:22px;opacity:.6;animation:rise linear forwards;z-index:0;pointer-events:none}
 @keyframes rise{to{transform:translateY(-110vh) rotate(40deg);opacity:0}}
 </style>
 </head>
 <body>
 <canvas id="fx"></canvas>
-<main class="card">
-  <!-- Screen 1: intro -->
-  <section id="s1">
-    <div class="emoji">👀</div>
-    <h1 id="hello"></h1>
-    <p>I have something to ask you…</p>
-    <button class="yes" id="go">Okay, what is it?</button>
-  </section>
-
-  <!-- Screen 2: the question -->
-  <section id="s2" class="hidden">
-    <div class="emoji" id="face">🥺</div>
-    <h1 id="q"></h1>
-    <p id="msg">Please say yes…</p>
-    <div class="row">
-      <button class="yes" id="yes">Yes 💖</button>
-      <button class="no" id="no">No</button>
+<main>
+  <h1 class="title">Aly’s 20th Birthday 🎂</h1>
+  <div class="stage">
+    <div class="bubble" id="bubble"></div>
+    <div class="chars">
+      <div class="aly" id="aly">
+        <span>👩</span>
+        <img id="photo" src="aly.jpg" alt="Aly" onerror="this.style.display='none'">
+        <svg class="hat" viewBox="0 0 100 110">
+          <polygon points="50,10 10,102 90,102" fill="#ffd24d" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+          <polygon points="50,10 33,50 67,50" fill="#ff4d85"/>
+          <circle cx="40" cy="78" r="5" fill="#ff4d85"/><circle cx="62" cy="84" r="5" fill="#7ad7ff"/><circle cx="50" cy="66" r="4" fill="#b28cff"/>
+          <circle cx="50" cy="9" r="9" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="mini" id="mini">
+        <svg viewBox="0 0 70 120">
+          <polygon points="35,2 25,24 45,24" fill="#ff4d85"/>
+          <circle cx="35" cy="38" r="16" fill="#ffd9b8"/>
+          <path d="M19 36 Q35 12 51 36 Q35 26 19 36Z" fill="#3a2a28"/>
+          <circle cx="29" cy="40" r="2" fill="#333"/><circle cx="41" cy="40" r="2" fill="#333"/>
+          <path d="M29 46 Q35 51 41 46" stroke="#333" fill="none" stroke-width="2" stroke-linecap="round"/>
+          <rect x="20" y="56" width="30" height="34" rx="9" fill="#4d7cff"/>
+          <path d="M20 62 L8 80 M50 62 L62 80" stroke="#4d7cff" stroke-width="7" stroke-linecap="round"/>
+          <path d="M28 90 L28 112 M42 90 L42 112" stroke="#333" stroke-width="7" stroke-linecap="round"/>
+        </svg>
+        <small id="mname"></small>
+      </div>
     </div>
-  </section>
-
-  <!-- Screen 3: plan -->
-  <section id="s3" class="hidden">
-    <div class="emoji">🎉</div>
-    <h1>Yay!! Best answer ever.</h1>
-    <p>Now, what sounds good?</p>
-    <div class="opts" id="opts"></div>
-  </section>
-
-  <!-- Screen 4: done -->
-  <section id="s4" class="hidden">
-    <div class="emoji">💌</div>
-    <h1 id="done"></h1>
-    <p id="doneSub"></p>
-    <button class="yes" id="send">Send my answer</button>
-    <p class="small" id="sent"></p>
-  </section>
+  </div>
+  <div id="panel"></div>
+  <div class="dots" id="dots"></div>
 </main>
 
 <script>
 // ✏️ EDIT THESE
 const CONFIG = {
-  her: "Her Name",
-  him: "Me",
-  question: "Will you go on a date with me?",
+  her: "Aly",
+  him: "Your Name",
+  question: "Aly… will you go on a date with me?",
+  // each chapter: story text, the draggable box, and who to drag it to ("aly" or "mini")
+  story: [
+    {t:"Hi! I’m mini {him}. Today is {her}’s 20th birthday! 🎉", box:"🎈", label:"Balloon", to:"aly"},
+    {t:"I wanted to make today extra special… but I got nervous 😳", box:"💪", label:"Courage", to:"mini"},
+    {t:"So I made a wish, and a tiny plan 🎂", box:"🎁", label:"Gift", to:"aly"},
+    {t:"One last thing: a letter with an important question 💌", box:"💌", label:"Letter", to:"aly"}
+  ],
   plans: ["🍽️ Dinner", "☕ Coffee & a walk", "🎬 Movie night", "🍦 Surprise me"]
 };
 
 const $ = id => document.getElementById(id);
-const show = id => { ["s1","s2","s3","s4"].forEach(s => $(s).classList.toggle("hidden", s !== id)); };
-$("hello").textContent = "Hi " + CONFIG.her + " 💕";
-$("q").textContent = CONFIG.question;
+const panel = $("panel"), aly = $("aly"), mini = $("mini");
+const T = s => s.replaceAll("{him}", CONFIG.him).replaceAll("{her}", CONFIG.her);
+const say = s => { $("bubble").textContent = T(s); };
+$("mname").textContent = "mini " + CONFIG.him;
+let chosen = "", tries = 0;
 
-const msgs = ["Please say yes…","Are you sure? 🥺","Think again…","Pretty please?","I’ll bring snacks 🍿","You’re breaking my heart 💔","Last chance… 😭","Okay the No button is scared of you 😅"];
-const faces = ["🥺","😢","😭","🥹","😳","💔","🙈","😅"];
-let tries = 0, chosen = "";
+// progress dots
+const total = CONFIG.story.length + 2;
+for (let i = 0; i < total; i++) $("dots").appendChild(document.createElement("i"));
+const setDots = n => [...$("dots").children].forEach((d, i) => d.classList.toggle("on", i <= n));
 
-$("go").onclick = () => show("s2");
-
-function dodge(){
-  const no = $("no");
-  tries++;
-  no.style.position = "fixed";
-  const pad = 20, w = no.offsetWidth, h = no.offsetHeight;
-  no.style.left = pad + Math.random() * (innerWidth - w - pad*2) + "px";
-  no.style.top = pad + Math.random() * (innerHeight - h - pad*2) + "px";
-  no.style.zIndex = 10;
-  $("msg").textContent = msgs[Math.min(tries, msgs.length-1)];
-  $("face").textContent = faces[Math.min(tries, faces.length-1)];
-  $("yes").style.transform = "scale(" + Math.min(1 + tries*0.18, 2.2) + ")";
-  $("yes").style.margin = Math.min(tries*4, 30) + "px";
+// drag helpers
+function hit(b, t){
+  const a = b.getBoundingClientRect(), r = t.getBoundingClientRect(), m = 20;
+  const x = a.left + a.width/2, y = a.top + a.height/2;
+  return x > r.left-m && x < r.right+m && y > r.top-m && y < r.bottom+m;
 }
-$("no").addEventListener("mouseenter", dodge);
-$("no").addEventListener("touchstart", e => { e.preventDefault(); dodge(); }, {passive:false});
-$("no").addEventListener("click", dodge);
+function dragBoxes(items, target, onHit){
+  const tray = document.createElement("div"); tray.className = "tray";
+  target.classList.add("want");
+  items.forEach(it => {
+    const b = document.createElement("div"); b.className = "box";
+    b.innerHTML = "<span>" + it.box + "</span><small>" + it.label + "</small>";
+    let sx, sy, on = false;
+    b.onpointerdown = e => { on = true; sx = e.clientX; sy = e.clientY; b.setPointerCapture(e.pointerId); b.style.transition = "none"; b.classList.add("lift"); };
+    b.onpointermove = e => {
+      if (!on) return;
+      b.style.transform = "translate(" + (e.clientX-sx) + "px," + (e.clientY-sy) + "px) scale(1.1)";
+      target.classList.toggle("hot", hit(b, target));
+    };
+    b.onpointerup = () => {
+      if (!on) return; on = false; b.classList.remove("lift"); target.classList.remove("hot");
+      if (hit(b, target)) { target.classList.remove("want"); b.remove(); onHit(it); }
+      else { b.style.transition = "transform .3s"; b.style.transform = ""; }
+    };
+    tray.appendChild(b);
+  });
+  panel.appendChild(tray);
+}
+function hint(s){ const p = document.createElement("p"); p.className = "hint"; p.textContent = T(s); panel.appendChild(p); }
 
-$("yes").onclick = () => {
-  $("no").style.display = "none";
-  confetti();
-  show("s3");
-};
+// story chapters
+function chapter(i){
+  panel.innerHTML = "";
+  setDots(i);
+  if (i >= CONFIG.story.length) return question();
+  const s = CONFIG.story[i];
+  say(s.t);
+  mini.style.setProperty("--gap", (CONFIG.story.length - i) * 10 + "px");
+  hint("Drag the box onto " + (s.to === "mini" ? "mini {him}" : "{her}") + " 👇");
+  dragBoxes([s], s.to === "mini" ? mini : aly, () => { burst(); chapter(i + 1); });
+}
 
-CONFIG.plans.forEach(p => {
-  const b = document.createElement("button");
-  b.textContent = p;
-  b.onclick = () => {
-    chosen = p;
-    $("done").textContent = "It’s a date! " + p;
-    $("doneSub").textContent = "I can’t wait, " + CONFIG.her + ". Let me know when you’re free 💗";
-    confetti();
-    show("s4");
+// the big question (the No button runs away)
+const msgs = ["Please say yes…","Are you sure? 🥺","Think again…","Pretty please?","I’ll bring snacks 🍿","You’re breaking my heart 💔","Last chance… 😭","The No button is scared of you 😅"];
+function question(){
+  setDots(CONFIG.story.length);
+  say(CONFIG.question);
+  mini.style.setProperty("--gap", "4px");
+  panel.innerHTML = '<div class="row"><button class="yes" id="yes">Yes 💖</button><button class="no" id="no">No</button></div>';
+  const no = $("no"), yes = $("yes");
+  const dodge = () => {
+    tries++;
+    no.style.position = "fixed"; no.style.zIndex = 70;
+    no.style.left = 20 + Math.random() * (innerWidth - no.offsetWidth - 40) + "px";
+    no.style.top = 20 + Math.random() * (innerHeight - no.offsetHeight - 40) + "px";
+    say(msgs[Math.min(tries, msgs.length - 1)]);
+    yes.style.transform = "scale(" + Math.min(1 + tries * .18, 2) + ")";
   };
-  $("opts").appendChild(b);
-});
+  no.addEventListener("mouseenter", dodge);
+  no.addEventListener("touchstart", e => { e.preventDefault(); dodge(); }, {passive:false});
+  no.addEventListener("click", dodge);
+  yes.onclick = () => { confetti(); plans(); };
+}
 
-$("send").onclick = async () => {
-  const text = "I said YES 💖 " + chosen + " sounds perfect. — " + CONFIG.her;
-  try {
-    if (navigator.share) { await navigator.share({ text }); $("sent").textContent = "Sent! 💌"; return; }
-  } catch (e) {}
-  try {
-    await navigator.clipboard.writeText(text);
-    $("sent").textContent = "Copied! Paste it in a message to " + CONFIG.him + " 💌";
-  } catch (e) {
-    $("sent").textContent = "Screenshot this and send it to " + CONFIG.him + " 💌";
-  }
-};
+// pick the plan by dragging it into the slot
+function plans(){
+  setDots(CONFIG.story.length + 1);
+  panel.innerHTML = "";
+  say("Yay!! 🎉 Now drag your pick onto our date slot!");
+  const slot = document.createElement("div"); slot.className = "slot"; slot.textContent = "💗 Our date";
+  panel.appendChild(slot);
+  const items = CONFIG.plans.map(p => ({ box: p.split(" ")[0], label: p.slice(p.indexOf(" ") + 1) }));
+  dragBoxes(items, slot, it => { chosen = it.box + " " + it.label; final(); });
+}
 
-// Floating hearts
+function final(){
+  setDots(total);
+  panel.innerHTML = "";
+  say("It’s a date! " + chosen + " 💗 I can’t wait, {her}!");
+  confetti();
+  panel.innerHTML = '<button class="yes" id="send">Send my answer 💌</button><p class="sent" id="sent"></p>';
+  $("send").onclick = async () => {
+    const text = "I said YES 💖 " + chosen + " sounds perfect. — " + CONFIG.her;
+    try { if (navigator.share) { await navigator.share({ text }); $("sent").textContent = "Sent! 💌"; return; } } catch (e) {}
+    try { await navigator.clipboard.writeText(text); $("sent").textContent = "Copied! Paste it in a message to " + CONFIG.him + " 💌"; }
+    catch (e) { $("sent").textContent = "Screenshot this and send it to " + CONFIG.him + " 💌"; }
+  };
+}
+
+// floating hearts
 setInterval(() => {
   const h = document.createElement("div");
   h.className = "heart";
-  h.textContent = ["💗","💖","💕","🌸"][Math.floor(Math.random()*4)];
-  h.style.left = Math.random()*100 + "vw";
-  h.style.animationDuration = 6 + Math.random()*6 + "s";
+  h.textContent = ["💗","💖","💕","🌸","🎀"][Math.floor(Math.random() * 5)];
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = 6 + Math.random() * 6 + "s";
   document.body.appendChild(h);
   setTimeout(() => h.remove(), 12000);
 }, 700);
 
-// Confetti
-function confetti(){
+// confetti
+function confetti(n = 140){
   const c = $("fx"), ctx = c.getContext("2d");
   c.width = innerWidth; c.height = innerHeight;
   const cols = ["#ff4d85","#ffb3cc","#ffd24d","#7ad7ff","#b28cff"];
-  const ps = Array.from({length:140}, () => ({
-    x: innerWidth/2, y: innerHeight/2,
-    vx: (Math.random()-.5)*16, vy: Math.random()*-14-2,
+  const ps = Array.from({length:n}, () => ({
+    x: innerWidth/2, y: innerHeight/2, vx: (Math.random()-.5)*16, vy: Math.random()*-14-2,
     s: 5+Math.random()*6, c: cols[Math.floor(Math.random()*cols.length)], r: Math.random()*6
   }));
   let f = 0;
   (function tick(){
-    ctx.clearRect(0,0,c.width,c.height);
-    ps.forEach(p => { p.x+=p.vx; p.y+=p.vy; p.vy+=.35; p.r+=.2;
-      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6); ctx.restore(); });
-    if (++f < 150) requestAnimationFrame(tick); else ctx.clearRect(0,0,c.width,c.height);
+    ctx.clearRect(0, 0, c.width, c.height);
+    ps.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .35; p.r += .2;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s/2, -p.s/2, p.s, p.s*.6); ctx.restore(); });
+    if (++f < 130) requestAnimationFrame(tick); else ctx.clearRect(0, 0, c.width, c.height);
   })();
 }
+const burst = () => confetti(50);
+
+chapter(0);
 </script>
 </body>
 </html>
