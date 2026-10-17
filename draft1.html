@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A question for you 💌</title>
+<style>
+:root{--bg1:#ffe3ec;--bg2:#ffd1dc;--card:#ffffff;--text:#4a1f33;--muted:#8a5a70;--accent:#ff4d85;--accent2:#ff7aa5;--ghost:#f3dbe4;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2a1020;--bg2:#3b1530;--card:#1f0e18;--text:#ffe8f0;--muted:#d6a4bb;--accent:#ff5c93;--accent2:#ff86ae;--ghost:#3a2030;color-scheme:dark}}
+:root[data-theme="dark"]{--bg1:#2a1020;--bg2:#3b1530;--card:#1f0e18;--text:#ffe8f0;--muted:#d6a4bb;--accent:#ff5c93;--accent2:#ff86ae;--ghost:#3a2030;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:"Poppins","Segoe UI",system-ui,sans-serif;color:var(--text);background:linear-gradient(135deg,var(--bg1),var(--bg2));overflow:hidden}
+.card{background:var(--card);width:min(92vw,440px);padding:34px 26px;border-radius:28px;text-align:center;box-shadow:0 20px 60px rgba(255,77,133,.25);position:relative;z-index:2}
+.emoji{font-size:64px;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(4deg)}}
+h1{font-size:26px;margin:14px 0 8px;line-height:1.25}
+p{color:var(--muted);margin:0 0 20px;min-height:1.4em}
+button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:13px 28px;cursor:pointer;transition:transform .15s}
+.yes{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 8px 20px rgba(255,77,133,.4)}
+.no{background:var(--ghost);color:var(--text)}
+button:active{transform:scale(.96)}
+.row{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;min-height:90px}
+.hidden{display:none}
+.opts{display:grid;gap:10px;margin-bottom:8px}
+.opts button{background:var(--ghost);color:var(--text);border-radius:16px;text-align:left}
+.opts button:hover{background:var(--accent);color:#fff}
+.small{font-size:13px;margin-top:14px}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:5}
+.heart{position:fixed;bottom:-30px;font-size:22px;opacity:.5;animation:rise linear forwards;z-index:1;pointer-events:none}
+@keyframes rise{to{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<main class="card">
+  <!-- Screen 1: intro -->
+  <section id="s1">
+    <div class="emoji">👀</div>
+    <h1 id="hello"></h1>
+    <p>I have something to ask you…</p>
+    <button class="yes" id="go">Okay, what is it?</button>
+  </section>
+
+  <!-- Screen 2: the question -->
+  <section id="s2" class="hidden">
+    <div class="emoji" id="face">🥺</div>
+    <h1 id="q"></h1>
+    <p id="msg">Please say yes…</p>
+    <div class="row">
+      <button class="yes" id="yes">Yes 💖</button>
+      <button class="no" id="no">No</button>
+    </div>
+  </section>
+
+  <!-- Screen 3: plan -->
+  <section id="s3" class="hidden">
+    <div class="emoji">🎉</div>
+    <h1>Yay!! Best answer ever.</h1>
+    <p>Now, what sounds good?</p>
+    <div class="opts" id="opts"></div>
+  </section>
+
+  <!-- Screen 4: done -->
+  <section id="s4" class="hidden">
+    <div class="emoji">💌</div>
+    <h1 id="done"></h1>
+    <p id="doneSub"></p>
+    <button class="yes" id="send">Send my answer</button>
+    <p class="small" id="sent"></p>
+  </section>
+</main>
+
+<script>
+// ✏️ EDIT THESE
+const CONFIG = {
+  her: "Her Name",
+  him: "Me",
+  question: "Will you go on a date with me?",
+  plans: ["🍽️ Dinner", "☕ Coffee & a walk", "🎬 Movie night", "🍦 Surprise me"]
+};
+
+const $ = id => document.getElementById(id);
+const show = id => { ["s1","s2","s3","s4"].forEach(s => $(s).classList.toggle("hidden", s !== id)); };
+$("hello").textContent = "Hi " + CONFIG.her + " 💕";
+$("q").textContent = CONFIG.question;
+
+const msgs = ["Please say yes…","Are you sure? 🥺","Think again…","Pretty please?","I’ll bring snacks 🍿","You’re breaking my heart 💔","Last chance… 😭","Okay the No button is scared of you 😅"];
+const faces = ["🥺","😢","😭","🥹","😳","💔","🙈","😅"];
+let tries = 0, chosen = "";
+
+$("go").onclick = () => show("s2");
+
+function dodge(){
+  const no = $("no");
+  tries++;
+  no.style.position = "fixed";
+  const pad = 20, w = no.offsetWidth, h = no.offsetHeight;
+  no.style.left = pad + Math.random() * (innerWidth - w - pad*2) + "px";
+  no.style.top = pad + Math.random() * (innerHeight - h - pad*2) + "px";
+  no.style.zIndex = 10;
+  $("msg").textContent = msgs[Math.min(tries, msgs.length-1)];
+  $("face").textContent = faces[Math.min(tries, faces.length-1)];
+  $("yes").style.transform = "scale(" + Math.min(1 + tries*0.18, 2.2) + ")";
+  $("yes").style.margin = Math.min(tries*4, 30) + "px";
+}
+$("no").addEventListener("mouseenter", dodge);
+$("no").addEventListener("touchstart", e => { e.preventDefault(); dodge(); }, {passive:false});
+$("no").addEventListener("click", dodge);
+
+$("yes").onclick = () => {
+  $("no").style.display = "none";
+  confetti();
+  show("s3");
+};
+
+CONFIG.plans.forEach(p => {
+  const b = document.createElement("button");
+  b.textContent = p;
+  b.onclick = () => {
+    chosen = p;
+    $("done").textContent = "It’s a date! " + p;
+    $("doneSub").textContent = "I can’t wait, " + CONFIG.her + ". Let me know when you’re free 💗";
+    confetti();
+    show("s4");
+  };
+  $("opts").appendChild(b);
+});
+
+$("send").onclick = async () => {
+  const text = "I said YES 💖 " + chosen + " sounds perfect. — " + CONFIG.her;
+  try {
+    if (navigator.share) { await navigator.share({ text }); $("sent").textContent = "Sent! 💌"; return; }
+  } catch (e) {}
+  try {
+    await navigator.clipboard.writeText(text);
+    $("sent").textContent = "Copied! Paste it in a message to " + CONFIG.him + " 💌";
+  } catch (e) {
+    $("sent").textContent = "Screenshot this and send it to " + CONFIG.him + " 💌";
+  }
+};
+
+// Floating hearts
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.textContent = ["💗","💖","💕","🌸"][Math.floor(Math.random()*4)];
+  h.style.left = Math.random()*100 + "vw";
+  h.style.animationDuration = 6 + Math.random()*6 + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 12000);
+}, 700);
+
+// Confetti
+function confetti(){
+  const c = $("fx"), ctx = c.getContext("2d");
+  c.width = innerWidth; c.height = innerHeight;
+  const cols = ["#ff4d85","#ffb3cc","#ffd24d","#7ad7ff","#b28cff"];
+  const ps = Array.from({length:140}, () => ({
+    x: innerWidth/2, y: innerHeight/2,
+    vx: (Math.random()-.5)*16, vy: Math.random()*-14-2,
+    s: 5+Math.random()*6, c: cols[Math.floor(Math.random()*cols.length)], r: Math.random()*6
+  }));
+  let f = 0;
+  (function tick(){
+    ctx.clearRect(0,0,c.width,c.height);
+    ps.forEach(p => { p.x+=p.vx; p.y+=p.vy; p.vy+=.35; p.r+=.2;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6); ctx.restore(); });
+    if (++f < 150) requestAnimationFrame(tick); else ctx.clearRect(0,0,c.width,c.height);
+  })();
+}
+</script>
+</body>
+</html>
