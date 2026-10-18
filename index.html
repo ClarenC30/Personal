@@ -8,29 +8,31 @@
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
-body{--cw:min(21vw,104px);font-family:"Fredoka","Segoe UI",system-ui,sans-serif;color:#4a1f33;overflow:hidden;background-color:#ffb3cf;
+body{--cw:min(21vw,104px);--hw:min(38vw,26vh);font-family:"Fredoka","Segoe UI",system-ui,sans-serif;color:#4a1f33;overflow:hidden;background-color:#ffb3cf;
 background-image:radial-gradient(#ff8fb7 4px,transparent 4.5px),radial-gradient(rgba(255,255,255,.65) 2.5px,transparent 3px),linear-gradient(90deg,rgba(255,255,255,.2) 50%,transparent 50%);
 background-size:40px 40px,24px 24px,60px 60px;background-position:0 0,12px 12px,0 0;animation:drift 16s linear infinite}
 @keyframes drift{to{background-position:120px 120px,132px 132px,120px 0}}
 .pg{position:fixed;inset:0}
 .fl{position:fixed;font-size:26px;pointer-events:none;z-index:1;animation:pop 4.5s ease-out forwards}
+.fl.rise{animation:rise 5s linear forwards;z-index:4;font-size:30px}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}10%{transform:translateY(-6vh) scale(1);opacity:1}62%{opacity:1}100%{transform:translateY(-58vh) rotate(25deg);opacity:0}}
 @keyframes pop{0%{transform:scale(0)}12%{transform:scale(1.5)}25%{transform:scale(1)}100%{transform:translateY(-130px) rotate(35deg);opacity:0}}
 /* page 1 */
-.top{position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);left:0;right:0;text-align:center;padding:0 14px;z-index:4;transition:opacity .5s}
+.cake{position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);font-size:clamp(44px,12vw,84px);line-height:1;z-index:5;transition:opacity .5s;animation:sway 2.4s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-9deg)}to{transform:rotate(9deg) scale(1.08)}}
+.top{position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);left:0;right:0;text-align:center;padding:0 clamp(60px,15vw,120px);z-index:4;transition:opacity .5s}
 h1{font-weight:700;font-size:clamp(30px,8.5vw,52px);line-height:1.1;margin:0;color:#fff;text-shadow:0 3px 0 #e0306a,0 0 14px rgba(224,48,106,.55)}
 .top p{margin:6px auto 0;max-width:520px;font-weight:500;font-size:clamp(14px,3.8vw,19px);color:#7a1d45}
-.cut{position:absolute;bottom:0;height:70vh;display:flex;justify-content:center;align-items:flex-end;z-index:2}
-.cut img{height:100%;width:auto;max-width:none;display:block}
-.fb{display:none;font-size:30vh}
-.l{left:-2vw;transform:translateY(110%);animation:up .8s .8s cubic-bezier(.2,1.5,.4,1) forwards}
-.r{right:-14vw;transform:translateY(110%);animation:up .8s .2s cubic-bezier(.2,1.5,.4,1) forwards}
-.m{left:50%;z-index:3;transform:translate(-50%,110%);animation:upm .8s 1.4s cubic-bezier(.2,1.5,.4,1) forwards}
+.cut{position:absolute;top:var(--ty);width:calc(var(--hw) / var(--fw));height:calc(var(--hw) / var(--fw) / var(--a));left:calc(50% + var(--dx) * var(--hw) - var(--fx) * var(--hw) / var(--fw));display:flex;justify-content:center;align-items:flex-start;z-index:2;transform:translateY(120%)}
+.cut img{width:100%;height:100%;display:block}
+.fb{display:none;font-size:20vh}
+.l{--a:.35;--fx:.596;--fw:.592;--dx:-.85;--ty:40vh;animation:up .8s .8s cubic-bezier(.2,1.3,.4,1) forwards}
+.r{--a:.745;--fx:.561;--fw:.274;--dx:.85;--ty:40vh;animation:up .8s .2s cubic-bezier(.2,1.3,.4,1) forwards}
+.m{--a:.726;--fx:.558;--fw:.38;--dx:0;--ty:36vh;z-index:3;animation:up .8s 1.4s cubic-bezier(.2,1.3,.4,1) forwards}
 @keyframes up{to{transform:translateY(0)}}
-@keyframes upm{to{transform:translate(-50%,0)}}
 @keyframes dn{from{transform:translateY(0)}to{transform:translateY(120%)}}
-@keyframes dnm{from{transform:translate(-50%,0)}to{transform:translate(-50%,120%)}}
-.out .top{opacity:0}.out .l,.out .r{animation:dn .7s forwards}.out .m{animation:dnm .7s forwards}
-.hatb{--hw:min(30vw,125px);position:absolute;left:56%;width:var(--hw);top:calc(70vh * .08 - var(--hw) * 1.1);background:none;border:0;padding:0;cursor:pointer;animation:beat 1s ease-in-out infinite;z-index:5;opacity:0;animation-delay:2.2s;animation-fill-mode:backwards}
+.out .top{opacity:0}.out .cut{animation:dn .7s forwards}.out .cake{opacity:0}
+.hatb{--hatw:min(calc(var(--hw) * .8),150px);position:absolute;left:55.8%;width:var(--hatw);top:calc(var(--hw) / var(--fw) / var(--a) * .07 - var(--hatw) * 1.1);background:none;border:0;padding:0;cursor:pointer;animation:beat 1s ease-in-out infinite;z-index:5;opacity:0;animation-delay:2.2s;animation-fill-mode:backwards}
 .hatb svg{width:100%;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
 .hatb em{position:absolute;left:100%;top:25%;white-space:nowrap;background:#fff;color:#e0306a;border-radius:999px;padding:4px 12px;font:700 15px "Fredoka",sans-serif;box-shadow:0 4px 10px rgba(224,48,106,.4)}
 @keyframes beat{0%,100%{opacity:1;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.3)}}
@@ -100,7 +102,7 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:60}
 </head>
 <body>
 <canvas id="fx"></canvas>
-<section class="pg" id="p1"><div class="top"><h1 id="ttl"></h1><p>Are you curious how far she can go? Come along Aly Express! CHOO CHOO! 🚂</p></div></section>
+<section class="pg" id="p1"><div class="cake" style="left:10px">🎂</div><div class="cake" style="right:10px;animation-delay:-1.2s">🎂</div><div class="top"><h1 id="ttl"></h1><p>See this pretty baby? Come along the Aly Express to see how you can meet her!</p></div></section>
 <div id="ui"><div class="dcard" id="dc"></div><p class="hint" id="hint"></p><div class="tray" id="tray"></div></div>
 <div class="rail"></div>
 <div id="train"></div>
@@ -111,9 +113,9 @@ canvas{position:fixed;inset:0;pointer-events:none;z-index:60}
 <script>
 // ✏️ EDIT THESE
 const CONFIG = {
-  title: "Aly’s 20th Birthday",
+  title: "Aly’s 20th Birthday!!!",
   photos: ["aly1.png", "aly2.png", "aly3.png"],   // left, middle (gets the hat), right: transparent PNG cutouts
-  hat: { left: "56%", top: "" },                  // hat spot on the middle photo (top: "" = automatic)
+  hat: { left: "55.8%", top: "" },                  // hat spot on the middle photo (top: "" = automatic)
   face: { zoom: 2.2, left: -0.73, top: -0.06 },    // crop of the middle photo used for mini Aly’s face
   stops: [
     { desc: "Before we get to see Aly’s destination, we need to relax first and prepare for the journey ahead. Pick a movie to watch for us to gain knowledge and experience on the journey ahead.",
@@ -261,9 +263,13 @@ async function send(){
 setInterval(() => {
   const e = document.createElement("div"); e.className = "fl";
   e.textContent = ["💗","🎀","🌸","🌷","🌺","💖","🌸","🎀"][Math.floor(Math.random() * 8)];
-  e.style.left = (Math.random() < .5 ? Math.random() * 12 : 88 + Math.random() * 9) + "vw"; e.style.top = (8 + Math.random() * 72) + "vh";
-  document.body.appendChild(e); setTimeout(() => e.remove(), 4600);
-}, 420);
+  if ($("p1").style.display !== "none" && !$("p1").classList.contains("out")) {
+    e.classList.add("rise"); e.style.left = Math.random() * 94 + "vw"; e.style.bottom = "-30px";   // page 1: rise from the bottom, fade before the faces
+  } else {
+    e.style.left = (Math.random() < .5 ? Math.random() * 12 : 88 + Math.random() * 9) + "vw"; e.style.top = (8 + Math.random() * 72) + "vh";
+  }
+  document.body.appendChild(e); setTimeout(() => e.remove(), 5200);
+}, 380);
 
 function confetti(){
   const c = $("fx"), ctx = c.getContext("2d"); c.width = innerWidth; c.height = innerHeight;
