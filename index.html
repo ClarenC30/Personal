@@ -1,1 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aly Express 🚂</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{--cw:min(23vw,32vh);--hw:min(38vw,26vh);font-family:"Fredoka","Segoe UI",system-ui,sans-serif;color:#4a1f33;overflow:hidden;background-color:#ffb3cf;
+background-image:radial-gradient(#ff8fb7 4px,transparent 4.5px),radial-gradient(rgba(255,255,255,.65) 2.5px,transparent 3px),linear-gradient(90deg,rgba(255,255,255,.2) 50%,transparent 50%);
+background-size:40px 40px,24px 24px,60px 60px;background-position:0 0,12px 12px,0 0;animation:drift 16s linear infinite}
+@keyframes drift{to{background-position:120px 120px,132px 132px,120px 0}}
+.pg{position:fixed;inset:0}
+.fl{position:fixed;font-size:26px;pointer-events:none;z-index:1;animation:pop 4.5s ease-out forwards}
+.fl.rise{animation:rise 5s linear forwards;z-index:4;font-size:30px}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}10%{transform:translateY(-6vh) scale(1);opacity:1}62%{opacity:1}100%{transform:translateY(-58vh) rotate(25deg);opacity:0}}
+@keyframes pop{0%{transform:scale(0)}12%{transform:scale(1.5)}25%{transform:scale(1)}100%{transform:translateY(-130px) rotate(35deg);opacity:0}}
+/* page 1 */
+.cake{position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);width:clamp(68px,16vw,145px);z-index:5;transition:opacity .5s;animation:sway 2.4s ease-in-out infinite alternate}
+.cake svg{width:100%;display:block;filter:drop-shadow(0 4px 6px rgba(224,48,106,.4))}
+@keyframes sway{from{transform:rotate(-8deg)}to{transform:rotate(8deg) scale(1.06)}}
+.top{--s:calc(clamp(6px,7vw,150px) + clamp(68px,16vw,145px) + 8px);position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);left:0;right:0;text-align:center;padding:0 var(--s);z-index:4;transition:opacity .5s}
+h1{font-weight:700;font-size:clamp(28px,8vw,56px);line-height:1.1;margin:0;color:#fff;text-shadow:0 3px 0 #e0306a,0 0 14px rgba(224,48,106,.55)}
+.top p{margin:6px auto 0;max-width:520px;font-weight:500;font-size:clamp(13px,3.6vw,19px);color:#7a1d45}
+.cut{position:absolute;top:var(--ty);width:calc(var(--hw) / var(--fw));height:calc(var(--hw) / var(--fw) / var(--a));left:calc(50% + var(--sx) * min(var(--hw) * 1.35, 42vw) - var(--fx) * var(--hw) / var(--fw));display:flex;justify-content:center;align-items:flex-start;z-index:2;transform:translateY(120%)}
+.cut img{width:100%;height:100%;display:block}
+.fb{display:none;font-size:20vh}
+.l{--a:.35;--fx:.596;--fw:.592;--sx:-1;--ty:38vh;animation:up .8s .8s cubic-bezier(.2,1.3,.4,1) forwards}
+.r{--a:.745;--fx:.561;--fw:.274;--sx:1;--ty:38vh;animation:up .8s .2s cubic-bezier(.2,1.3,.4,1) forwards}
+.m{--a:.726;--fx:.558;--fw:.38;--sx:0;--ty:34vh;z-index:3;animation:up .8s 1.4s cubic-bezier(.2,1.3,.4,1) forwards}
+@keyframes up{to{transform:translateY(0)}}
+@keyframes dn{from{transform:translateY(0)}to{transform:translateY(120%)}}
+.out .top{opacity:0}.out .cut{animation:dn .7s forwards}.out .cake{opacity:0}
+.hatb{--hatw:min(calc(var(--hw) * .72),130px);position:absolute;left:55.8%;width:var(--hatw);top:calc(var(--hw) / var(--fw) / var(--a) * .105 - var(--hatw) * 1.1);background:none;border:0;padding:0;cursor:pointer;animation:beat 1s ease-in-out infinite;z-index:5;opacity:0;animation-delay:2.2s;animation-fill-mode:backwards}
+.hatb svg{width:100%;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
+.hatb em{position:absolute;left:100%;top:25%;white-space:nowrap;background:#fff;color:#e0306a;border-radius:999px;padding:4px 12px;font:700 15px "Fredoka",sans-serif;box-shadow:0 4px 10px rgba(224,48,106,.4)}
+@keyframes beat{0%,100%{opacity:1;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.12)}}
+/* heads */
+.head{position:relative;width:1em;height:1em}
+.face{position:absolute;inset:0;border-radius:50%;overflow:hidden;background:#ffd6e4;border:.04em solid #fff;display:grid;place-items:center}
+.face span{font-size:.6em}.face img{position:absolute}
+.head svg{position:absolute;width:.9em;left:50%;margin-left:-.45em;top:-.78em;transform:rotate(-10deg);pointer-events:none}
+.fly{position:fixed;z-index:30;transform-origin:0 0;transition:left .9s cubic-bezier(.5,0,.7,1.3),top .9s cubic-bezier(.5,0,.7,1.3),transform .9s}
+/* train */
+.rail{position:fixed;left:0;bottom:8px;height:6px;width:0;transition:width 2.4s linear;background:repeating-linear-gradient(90deg,#c2336b 0 14px,transparent 14px 22px);z-index:3}
+.rail.on{width:100%}
+#train{position:fixed;left:0;right:0;bottom:12px;display:flex;align-items:flex-end;justify-content:center;gap:6px;z-index:5;transform:translateX(var(--x,-130vw));transition:transform 1.9s ease-out}
+#train.chug{animation:chug .22s infinite}
+@keyframes chug{0%,100%{transform:translateX(var(--x))}50%{transform:translateX(var(--x)) translateY(-3px)}}
+.cart{position:relative;width:var(--cw);height:calc(var(--cw)*.62);flex:none}
+.cart::after{content:"";position:absolute;right:-8px;bottom:20px;width:8px;height:4px;background:#c2336b}
+.bx{position:absolute;left:0;right:0;bottom:12px;height:70%;background:linear-gradient(#ff8fb8,#ff5c93);border:3px solid #fff;border-radius:6px 6px 12px 12px;box-shadow:0 4px 8px rgba(224,48,106,.4);color:#fff;font-weight:700;text-align:center;line-height:calc(var(--cw)*.4);font-size:calc(var(--cw)*.2)}
+.load{position:absolute;left:0;right:0;bottom:calc(12px + 70%);text-align:center;font-size:calc(var(--cw)*.42);line-height:1}
+.w{position:absolute;bottom:0;width:calc(var(--cw)*.16);aspect-ratio:1;border-radius:50%;background:#4a1f33;border:3px solid #fff}
+.loco{position:relative;width:calc(var(--cw)*1.45);height:var(--cw);flex:none}
+.loco .bd{position:absolute;left:0;right:0;bottom:12px;height:52%;background:#ff5c93;border:3px solid #fff;border-radius:6px 30px 8px 8px}
+.loco .cab{position:absolute;left:0;bottom:12px;width:36%;height:84%;background:#ff8fb8;border:3px solid #fff;border-radius:8px 8px 0 0}
+.loco .ch{position:absolute;left:50%;bottom:calc(12px + 50%);width:12%;height:24%;background:#c2336b;border-radius:3px 3px 0 0}
+.gs{position:absolute;right:2%;bottom:calc(12px + 3%)}
+.gs .head{opacity:0}.gs .head.on{opacity:1;animation:land .4s}
+@keyframes land{50%{transform:translateY(5px) scale(1.1)}}
+.want{outline:4px dashed #ff4d85;outline-offset:6px;animation:pulse 1s infinite}
+@keyframes pulse{50%{outline-offset:11px}}
+.hot{transform:scale(1.04)}
+.puff{position:fixed;border-radius:50%;background:rgba(255,255,255,.9);pointer-events:none;z-index:40;animation:pf 2s ease-out forwards}
+@keyframes pf{from{transform:scale(.4);opacity:.9}to{transform:translate(var(--dx),var(--dy)) scale(var(--sc));opacity:0}}
+/* stop counter */
+#stops-wrap{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:14px;display:flex;flex-direction:column;gap:3px;z-index:8}
+#stops{display:flex;align-items:center}
+.st{width:26px;height:26px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25);flex:none;cursor:pointer;transition:transform .2s}
+.st:hover{transform:scale(1.15)}
+.ln{width:28px;height:4px;background:#fff;flex:none}
+.st.cur{transform:scale(1.35)}.st.blink{animation:blink .8s infinite}
+@keyframes blink{50%{opacity:.2;transform:scale(1.5)}}
+.here{position:absolute;top:32px;font-size:12px;font-weight:700;color:#fff;text-shadow:0 1px 4px #e0306a;white-space:nowrap;transition:left .6s}
+.snot{font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.3);background:rgba(224,48,106,.65);padding:2px 8px;border-radius:999px;width:fit-content}
+/* pages 2-4 */
+#ui{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 62px) 10px calc(var(--cw)*1.3 + 26px);z-index:4;transform:translateX(110vw);pointer-events:none;transition:transform 1.5s ease-in-out}
+#ui.in{transform:none;pointer-events:auto}#ui.out{transform:translateX(-110vw)}
+.dcard{width:min(96vw,680px);background:rgba(255,255,255,.82);border-radius:18px;padding:10px 16px;font-weight:500;font-size:clamp(12px,3.3vw,17px);line-height:1.4;text-align:center;box-shadow:0 10px 30px rgba(224,48,106,.3)}
+.tray{flex:1;min-height:0;width:min(99vw,1280px);margin-top:10px;display:grid;gap:10px;grid-auto-rows:1fr}
+.n8,.n4{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:820px){.n8{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.n3{grid-template-columns:repeat(3,minmax(0,1fr))}.n1{grid-template-columns:minmax(0,320px);justify-content:center}.n3,.n1{grid-auto-rows:minmax(0,300px);align-content:center}
+.box{border-radius:16px;box-shadow:0 8px 18px rgba(224,48,106,.4);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;position:relative;z-index:10;padding:8px 12px;display:flex;flex-direction:column;justify-content:center;min-height:0;overflow:hidden}
+.box.big{align-items:center;text-align:center}
+.big span{font-size:clamp(40px,12vw,80px);line-height:1.1}.big small{font-size:clamp(12px,3.4vw,18px);font-weight:700}
+.box.food{align-items:flex-start;font-size:clamp(11px,2.6vw,14.5px);line-height:1.35;font-weight:500}
+.nm{font-weight:700;font-size:1.15em;margin-bottom:2px;width:100%}
+.mnub{font-size:0.9em;margin-bottom:2px}
+.mnub a{color:#2a5ad4;text-decoration:underline;font-weight:700}
+.ck{font-weight:700}.ck.ok{color:#1f9d55}.ck.no{color:#d42a2a}
+.box.lift{cursor:grabbing;z-index:50}
+#bub{position:fixed;background:#fff;border-radius:18px;padding:10px 16px;font-weight:600;line-height:1.4;box-shadow:0 8px 20px rgba(224,48,106,.35);z-index:20;opacity:0;transition:opacity .3s;pointer-events:none;transform:translateX(-50%)}
+#bub.on{opacity:1}
+#bub::after{content:"";position:absolute;bottom:-9px;left:50%;margin-left:-10px;border:10px solid transparent;border-top-color:#fff;border-bottom:0}
+/* page 5 */
+#p5{display:none;z-index:6;pointer-events:none}#p5.on{display:block}
+.cap{position:absolute;top:calc(env(safe-area-inset-top,0px) + 62px);left:0;right:0;text-align:center;font-weight:700;font-size:clamp(17px,5vw,30px);padding:0 8px;color:#fff;text-shadow:0 3px 0 #e0306a}
+.sc{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;padding-top:calc(env(safe-area-inset-top,0px) + 118px)}
+.sc.on{display:flex;animation:fi 1.4s ease-out}
+@keyframes fi{from{transform:translateX(100vw)}}
+.nw{font-weight:700;color:#7a1d45;letter-spacing:2px;margin-bottom:10px;text-align:center}
+.screen{width:min(88vw,560px);height:32vh;background:#1a0d18;border:10px solid #c2336b;border-radius:12px;box-shadow:0 0 0 6px #ff8fb8,0 0 60px rgba(255,255,255,.7);display:grid;place-items:center;text-align:center;padding:12px}
+.screen b{color:#fff;font-size:clamp(24px,8vw,48px);line-height:1.15}
+.pop{font-size:40px;margin-top:12px}
+.sign{background:#fff;border-radius:999px;padding:10px 24px;font-weight:700;font-size:clamp(20px,6.5vw,34px);box-shadow:0 8px 20px rgba(224,48,106,.4);text-align:center}
+.table{margin-top:26px;width:min(86vw,480px);height:90px;background:#fff5ea;border-radius:16px;border-bottom:12px solid #c98a5a;display:flex;justify-content:space-around;align-items:center;font-size:34px}
+.man{overflow:visible;position:absolute;right:2vw;bottom:calc(var(--cw)*1.3 + 24px);width:min(28vw,130px)}
+#nx{position:absolute;bottom:calc(var(--cw)*1.3 + 22px);left:12px;pointer-events:auto;font:700 17px "Fredoka",sans-serif;border:0;border-radius:999px;padding:11px 26px;cursor:pointer;color:#fff;background:linear-gradient(135deg,#ff4d85,#ff7aa5);box-shadow:0 8px 20px rgba(255,77,133,.5);white-space:nowrap}
+.sent{position:absolute;bottom:calc(var(--cw)*1.3 + 70px);left:12px;font-weight:700;color:#7a1d45}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:60}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<section class="pg" id="p1"><div class="cake" style="left:clamp(6px,7vw,150px)" id="ck1"></div><div class="cake" style="right:clamp(6px,7vw,150px);animation-delay:-1.2s" id="ck2"></div><div class="top"><h1 id="ttl"></h1><p>See this pretty baby? Come along the Aly Express to see how you can meet her!</p></div></section>
+<div id="stops-wrap">
+  <div id="stops"></div>
+  <div class="snot">💡 You can go back to your choices</div>
+</div>
+<div id="ui"><div class="dcard" id="dc"></div><div class="tray" id="tray"></div></div>
+<div class="rail" id="rail"></div>
+<div id="train"></div>
+<div id="bub"></div>
+<section class="pg" id="p5"><div class="cap" id="cap"></div><button id="nx"></button><div class="sent" id="sent"></div></section>
 
+<script>
+const CONFIG = {
+  title: "Aly’s 20th Birthday!!!",
+  photos: ["aly1.png", "aly2.png", "aly3.png"],
+  hat: { left: "55.8%", top: "" },
+  face: { zoom: 2.2, left: -0.73, top: -0.06 },
+  stops: [
+    { desc: "The journey could get tiring! However, we can combat that with GOOD FOOD. Drag the food you wish to eat onto cart 2 to replenish your strength along the journey.",
+      cart: 2, line: "im thinking ab u as often as i think ab my dino sandwich",
+      items: [
+        {e:"🍜",l:"Nanyang",u:"http://nanyang.com.ph/menu/",p:"₱200–500",pl:"Opus Mall, Greenhills, Podium, Shangri-la",d:"Singaporean",k:1,c:"#fff0c9"},
+        {e:"🍲",l:"Borro",u:"https://ph.openrice.com/en/manila/r-borro-manila-diliman-filipino-r352293/photos/menu",p:"₱500–2000",pl:"Timog Ave.",d:"Filipino food",k:1,c:"#ffd9c9"},
+        {e:"🍢",l:"Tori-tori Kushiyaki",u:"https://booky.ph/biz/toritori-kushiyaki-snack-bar-katipunan/menu/",p:"₱60 × how many you order",pl:"White Plains",d:"Japanese, Grill",k:0,c:"#ffd1d1"},
+        {e:"🍛",l:"Purple Rice",u:"https://www.tripadvisor.co.za/Restaurant_Review-g1758900-d26868399-Reviews-Purple_Rice_Bgc-Taguig_City_Metro_Manila_Luzon.html#/media/26868399/784865499:p/?type=ALL_INCLUDING_RESTRICTED&albumid=-184&category=-184",p:"₱500–1000",pl:"Salcedo, BGC, SM North",d:"Thai",k:1,c:"#e6d6ff"},
+        {e:"🌮",l:"Filling Station Bar and Cafe",u:"https://sites.google.com/view/fillingstationbarcafemenu/home",p:"₱500–2000",pl:"Poblacion",d:"American, Mexican",k:1,c:"#ffe3b3"},
+        {e:"🥘",l:"Azadore",u:"https://www.azadore.com/azadore-menu/",p:"₱500–2000",pl:"Kamuning (near Borro)",d:"Fusion of Spanish & American",k:1,c:"#ffd6e8"},
+        {e:"🍗",l:"Chick Chicken",u:"https://chickchickenmaginhawaqc.cococart.co/",p:"₱200–600",pl:"Maginhawa, Marikina",d:"Classic choice",k:1,c:"#fff3b8"},
+        {e:"🍝",l:"A mano",u:"https://booky.ph/biz/sundays-cafe-and-restaurant-diliman/menu/",p:"₱500–2000",pl:"Cubao, Shangri-la",d:"Italian",k:1,c:"#d9f2d9"}
+      ] },
+    { desc: "The journey is long! Pick a movie you’d like to watch to help you relax and pass the time on your journey!",
+      cart: 3, line: "782. (Aly Arididon) aanhin ang seven wonders of the world kung ndi ikaw c aly",
+      items: [{e:"🎹",l:"La La Land",c:"#ffe3b3"},{e:"🐉",l:"Spirited Away",c:"#c9f0e0"},{e:"🎈",l:"Up",c:"#cfe6ff"}] },
+    { desc: "One more stop before the destination… it’s time for the grand surprise! Drag it onto cart 4.",
+      cart: 4, line: "My favorite things in life are like that choco ice cream, but ure the chocolate at the end of the cone",
+      items: [{e:"🎁",l:"Grand Surprise",c:"#ffe0ee"}] }
+  ]
+};
+
+const $ = id => document.getElementById(id);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const HAT = '<svg viewBox="0 0 100 110"><polygon points="50,10 10,102 90,102" fill="#ff9cc2" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><polygon points="50,10 33,50 67,50" fill="#ff4d85"/><circle cx="40" cy="78" r="5" fill="#fff"/><circle cx="62" cy="84" r="5" fill="#ffe0ec"/><circle cx="50" cy="66" r="4" fill="#fff"/><circle cx="50" cy="9" r="9" fill="#fff"/></svg>';
+const CAKE = '<svg viewBox="0 0 100 120"><g stroke="#fff" stroke-width="2.5"><rect x="26" y="24" width="8" height="24" rx="2" fill="#ff9cc2"/><rect x="46" y="24" width="8" height="24" rx="2" fill="#ff7aa9"/><rect x="66" y="24" width="8" height="24" rx="2" fill="#ff9cc2"/></g><g fill="#ff7aa9"><ellipse cx="30" cy="16" rx="5" ry="8"/><ellipse cx="50" cy="16" rx="5" ry="8"/><ellipse cx="70" cy="16" rx="5" ry="8"/></g><rect x="14" y="46" width="72" height="26" rx="8" fill="#ff8fb8" stroke="#fff" stroke-width="3"/><path d="M14 50h72v6q-9 14-18 0q-9 14-18 0q-9 14-18 0q-9 14-18 0z" fill="#fff"/><rect x="4" y="72" width="92" height="30" rx="9" fill="#ff5c93" stroke="#fff" stroke-width="3"/><circle cx="24" cy="88" r="3" fill="#fff"/><circle cx="50" cy="92" r="3" fill="#fff"/><circle cx="76" cy="88" r="3" fill="#fff"/><ellipse cx="50" cy="106" rx="48" ry="8" fill="#ffd1e3" stroke="#fff" stroke-width="2"/></svg>';
+
+let picks = [];
+let currentStop = 1;
+let hatClicked = false;
+$("ck1").innerHTML = CAKE; $("ck2").innerHTML = CAKE;
+
+function head(fs){
+  const h = document.createElement("div"); h.className = "head"; h.style.fontSize = fs + "px";
+  const f = CONFIG.face;
+  h.innerHTML = '<div class="face"><span>🙂</span><img alt="" src="' + CONFIG.photos[1] + '" onerror="this.remove()" style="width:' + f.zoom + 'em;left:' + f.left + 'em;top:' + f.top + 'em"></div>' + HAT;
+  return h;
+}
+
+// page 1 setup
+$("ttl").textContent = CONFIG.title;
+[["l",0],["m",1],["r",2]].forEach(([c, i]) => {
+  const d = document.createElement("div"); d.className = "cut " + c;
+  d.innerHTML = '<img alt="Aly" src="' + CONFIG.photos[i] + '"><span class="fb">💁‍♀️</span>';
+  d.firstChild.onerror = function(){ this.remove(); d.querySelector(".fb").style.display = "block"; };
+  if (c === "m") d.insertAdjacentHTML("beforeend", '<button class="hatb" id="hat" style="left:' + CONFIG.hat.left + (CONFIG.hat.top ? ";top:" + CONFIG.hat.top : "") + '">' + HAT + '<em>Click me!</em></button>');
+  $("p1").appendChild(d);
+});
+
+// train build
+const train = $("train");
+let tr = "";
+for (let i = 4; i >= 2; i--) tr += '<div class="cart" id="c' + i + '"><div class="bx">' + i + '</div><div class="load" id="ld' + i + '"></div><i class="w" style="left:12%"></i><i class="w" style="right:12%"></i></div>';
+tr += '<div class="loco" id="c1"><div class="ch" id="ch"></div><div class="cab"></div><div class="bd"></div><div class="gs" id="gs"></div><i class="w" style="left:6%"></i><i class="w" style="left:40%"></i><i class="w" style="right:8%"></i></div>';
+train.innerHTML = tr;
+const FS = Math.round($("c2").offsetWidth * .85);
+$("gs").style.width = $("gs").style.height = FS + "px";
+const ghead = head(FS); $("gs").appendChild(ghead);
+const setX = v => train.style.setProperty("--x", v);
+setX("-130vw");
+
+// stop counter logic (5 circles)
+const STOP_STATES = ["yellow", "red", "red", "red", "red"]; // 1 to 5
+function renderStops(){
+  const cols = STOP_STATES.map(st => st === "green" ? "#3ccf6b" : st === "yellow" ? "#ffd23f" : "#ff4d4d");
+  $("stops").innerHTML = cols.map((c, i) => (i ? '<b class="ln"></b>' : "") + '<i class="st" style="background:' + c + '" data-idx="' + (i+1) + '"></i>').join("") + '<div class="here" id="here">▲ You are here</div>';
+  
+  // attach click listeners for backtracking
+  $("stops").querySelectorAll(".st").forEach(el => {
+    el.onclick = () => {
+      const idx = parseInt(el.dataset.idx);
+      if (idx < currentStop || (STOP_STATES[idx-1] !== "red" && idx <= currentStop)) {
+        jumpToStop(idx);
+      }
+    };
+  });
+  updateStopIndicator();
+}
+
+function updateStopIndicator(){
+  const cs = $("stops").querySelectorAll(".st");
+  cs.forEach((c, i) => {
+    c.classList.toggle("cur", i === currentStop - 1);
+    c.classList.toggle("blink", STOP_STATES[i] === "yellow" && i === currentStop - 1);
+  });
+  if(cs[currentStop-1]){
+    $("here").style.left = (cs[currentStop-1].offsetLeft + cs[currentStop-1].offsetWidth / 2 - 7) + "px";
+  }
+}
+renderStops();
+
+async function jumpToStop(targetStop){
+  currentStop = targetStop;
+  // Reset future states
+  for(let i = currentStop; i < 5; i++) STOP_STATES[i] = "red";
+  STOP_STATES[currentStop-1] = "yellow";
+  renderStops();
+
+  if(targetStop === 1){
+    // back to page 1 state
+    $("ui").className = ""; $("p5").classList.remove("on"); $("p1").style.display = "block"; $("p1").classList.remove("out");
+    $("rail").classList.remove("on"); setX("-130vw"); ghead.classList.remove("on");
+    const hb = $("hat"); if(hb) hb.style.display = "block";
+    hatClicked = false;
+  } else {
+    $("p1").style.display = "none"; $("p5").classList.remove("on");
+    setX("0px"); $("rail").classList.add("on"); ghead.classList.add("on");
+    await slideIn();
+    stage(targetStop - 2);
+  }
+}
+
+// click the hat
+$("hat").onclick = async () => {
+  if(hatClicked) return; hatClicked = true;
+  const hb = $("hat"), r = hb.getBoundingClientRect();
+  const fh = head(120); fh.classList.add("fly");
+  fh.style.left = (r.left + r.width/2 - 60) + "px"; fh.style.top = (r.bottom - 25) + "px";
+  document.body.appendChild(fh); hb.style.display = "none";
+  $("p1").classList.add("out"); $("rail").classList.add("on");
+  
+  STOP_STATES[0] = "green"; STOP_STATES[1] = "yellow"; currentStop = 2; renderStops();
+  
+  await sleep(700);
+  setX("0px"); await sleep(2100);
+  const s = $("gs").getBoundingClientRect();
+  fh.style.left = s.left + "px"; fh.style.top = s.top + "px"; fh.style.transform = "scale(" + (s.width / 120) + ")";
+  await sleep(1000);
+  ghead.classList.add("on"); fh.remove(); $("p1").style.display = "none";
+  await sleep(500);
+  stage(0);
+};
+
+// drag helpers
+function hit(b, t){
+  const a = b.getBoundingClientRect(), r = t.getBoundingClientRect(), m = 24, x = a.left + a.width/2, y = a.top + a.height/2;
+  return x > r.left - m && x < r.right + m && y > r.top - m && y < r.bottom + m;
+}
+function dragBoxes(items, target, onHit){
+  const tray = $("tray"); tray.innerHTML = ""; tray.className = "tray n" + items.length; target.classList.add("want");
+  items.forEach(it => {
+    const b = document.createElement("div"); b.className = "box " + (it.u ? "food" : "big"); b.style.background = it.c;
+    b.innerHTML = it.u
+      ? '<div class="nm">' + it.l + '</div><div class="mnub">Menu: <a href="' + it.u + '" target="_blank" rel="noopener">Link</a></div><div>Price: ' + it.p + '</div><div>Place: ' + it.pl + '</div><div>Description: ' + it.d + '</div><div>Has chicken?: <span class="ck ' + (it.k ? "ok" : "no") + '">' + (it.k ? "✔" : "✘") + '</span></div>'
+      : "<span>" + it.e + "</span><small>" + it.l + "</small>";
+    let sx, sy, on = false;
+    b.onpointerdown = e => { if (e.target.closest("a")) return; on = true; sx = e.clientX; sy = e.clientY; b.setPointerCapture(e.pointerId); b.style.transition = "none"; b.classList.add("lift"); };
+    b.onpointermove = e => { if (!on) return; b.style.transform = "translate(" + (e.clientX - sx) + "px," + (e.clientY - sy) + "px) scale(1.06)"; target.classList.toggle("hot", hit(b, target)); };
+    b.onpointerup = () => {
+      if (!on) return; on = false; b.classList.remove("lift"); target.classList.remove("hot");
+      if (hit(b, target)) { target.classList.remove("want"); tray.innerHTML = ""; onHit(it); }
+      else { b.style.transition = "transform .3s"; b.style.transform = ""; }
+    };
+    tray.appendChild(b);
+  });
+}
+
+const ui = $("ui");
+async function slideIn(){
+  ui.style.transition = "none"; ui.className = ""; void ui.offsetWidth; ui.style.transition = "";
+  ui.classList.add("in"); train.classList.add("chug"); await sleep(1600); train.classList.remove("chug");
+}
+async function slideOut(){
+  ui.classList.remove("in"); ui.classList.add("out"); train.classList.add("chug"); await sleep(1600);
+}
+function puff(){
+  const r = $("ch").getBoundingClientRect(), e = document.createElement("div"), z = 8 + Math.random() * 6;
+  e.className = "puff"; e.style.width = e.style.height = z + "px";
+  e.style.left = (r.left + r.width/2 - z/2) + "px"; e.style.top = (r.top - z) + "px";
+  e.style.setProperty("--dx", (-15 - Math.random() * 25) + "px"); e.style.setProperty("--dy", (-25 - Math.random() * 25) + "px"); e.style.setProperty("--sc", 1.5 + Math.random() * 1);
+  document.body.appendChild(e); setTimeout(() => e.remove(), 1600);
+}
+
+async function stage(i){
+  const s = CONFIG.stops[i];
+  currentStop = i + 2; STOP_STATES[currentStop-1] = "yellow"; renderStops();
+  $("dc").textContent = s.desc;
+  
+  dragBoxes(s.items, $("c" + s.cart), async it => {
+    picks[i] = it; $("ld" + s.cart).textContent = it.e;
+    STOP_STATES[currentStop-1] = "green";
+    if(i < 2) STOP_STATES[currentStop] = "yellow";
+    renderStops();
+
+    const r = $("gs").getBoundingClientRect(), b = $("bub");
+    b.textContent = s.line; 
+    b.style.bottom = (innerHeight - r.top + 15) + "px"; 
+    b.style.left = (r.left + r.width / 2) + "px";
+    b.classList.add("on");
+    
+    train.classList.add("chug"); const iv = setInterval(puff, 500);
+    await sleep(2800); clearInterval(iv); b.classList.remove("on");
+    await slideOut();
+    if (i < 2) stage(i + 1); else scenes();
+  });
+  await slideIn();
+}
+
+function scenes(){
+  currentStop = 5; STOP_STATES[4] = "green"; renderStops();
+  $("p5").classList.add("on");
+  train.classList.add("chug"); setTimeout(() => train.classList.remove("chug"), 1500);
+  const f = picks[0], m = picks[1];
+  const S = [
+    { cap: "Stop 1 · Movie night 🎬", h: '<div class="nw">NOW SHOWING</div><div class="screen"><b>' + m.l + '</b></div><div class="pop">🍿 🥤 🍫</div>' },
+    { cap: "Stop 2 · Dinner 🍽️", h: '<div class="sign">' + f.e + " " + f.l + '</div><div class="table"><span>🕯️</span><span>' + f.e + '</span><span>🌹</span><span>' + f.e + '</span><span>🕯️</span></div>' },
+    { cap: "Final stop · Grand surprise 🎁", h: '<div class="nw">Someone is waiting for you…</div><svg class="man" viewBox="0 0 110 200"><g fill="rgba(255,255,255,.2)" stroke="#fff" stroke-width="4" stroke-dasharray="8 6" stroke-linecap="round"><circle cx="50" cy="30" r="22"/><path d="M20 190V90Q20 60 50 60Q80 60 80 90V190Z"/><path d="M80 80L98 118" fill="none"/></g><text x="50" y="135" font-size="70" font-weight="700" fill="#fff" text-anchor="middle">?</text><text x="84" y="146" font-size="34">🎁</text></svg>' }
+  ];
+  S.forEach((s, idx) => { const d = document.createElement("div"); d.className = "sc"; d.id = "sc" + idx; d.innerHTML = s.h; $("p5").prepend(d); });
+  const show = k => {
+    S.forEach((_, j) => $("sc" + j).classList.toggle("on", j === k)); $("cap").textContent = S[k].cap;
+    $("nx").textContent = k < 2 ? "Next stop 🚉" : "Send my answer 💌";
+    $("nx").onclick = k < 2 ? () => { train.classList.add("chug"); setTimeout(() => train.classList.remove("chug"), 1400); show(k + 1); } : send;
+    if (k === 2) confetti();
+  };
+  show(0);
+}
+async function send(){
+  const text = "Aly Express ✅ I picked " + picks[1].l + " 🎬 + " + picks[0].l + " 🍽️ and I’m ready for the grand surprise 🎁 — Aly";
+  try { if (navigator.share) { await navigator.share({ text }); $("sent").textContent = "Sent! 💌"; return; } } catch (e) {}
+  try { await navigator.clipboard.writeText(text); $("sent").textContent = "Copied! Paste it in a message 💌"; } catch (e) { $("sent").textContent = "Screenshot this and send it 💌"; }
+}
+
+setInterval(() => {
+  const e = document.createElement("div"); e.className = "fl";
+  e.textContent = ["💗","🎀","🌸","🌷","🌺","💖","🌸","🎀"][Math.floor(Math.random() * 8)];
+  if ($("p1").style.display !== "none" && !$("p1").classList.contains("out")) {
+    e.classList.add("rise"); e.style.left = Math.random() * 94 + "vw"; e.style.bottom = "-30px";
+  } else {
+    e.style.left = (Math.random() < .5 ? Math.random() * 12 : 88 + Math.random() * 9) + "vw"; e.style.top = (8 + Math.random() * 72) + "vh";
+  }
+  document.body.appendChild(e); setTimeout(() => e.remove(), 5200);
+}, 380);
+
+function confetti(){
+  const c = $("fx"), ctx = c.getContext("2d"); c.width = innerWidth; c.height = innerHeight;
+  const cols = ["#ff4d85","#ffb3cc","#ffd24d","#7ad7ff","#b28cff"];
+  const ps = Array.from({length:140}, () => ({ x: innerWidth/2, y: innerHeight/2, vx: (Math.random()-.5)*16, vy: Math.random()*-14-2, s: 5+Math.random()*6, c: cols[Math.floor(Math.random()*5)], r: Math.random()*6 }));
+  let f = 0;
+  (function tick(){
+    ctx.clearRect(0, 0, c.width, c.height);
+    ps.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .35; p.r += .2; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s/2, -p.s/2, p.s, p.s*.6); ctx.restore(); });
+    if (++f < 140) requestAnimationFrame(tick); else ctx.clearRect(0, 0, c.width, c.height);
+  })();
+}
+</script>
+</body>
+</html>
